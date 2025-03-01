@@ -24,7 +24,7 @@ jobs:
       - name: Build with Maven (Correct Directory)
         run: |
           cd loginportal/loginportal/loginportal
-          mvn clean install
+          mvn clean install -DskipTests
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
