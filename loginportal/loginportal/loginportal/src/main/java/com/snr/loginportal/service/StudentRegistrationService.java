@@ -1,5 +1,6 @@
 package com.snr.loginportal.service;
 
+import com.snr.loginportal.dto.CertificateDetails;
 import com.snr.loginportal.dto.StatusProjection;
 import com.snr.loginportal.model.StudentRegistration;
 import org.springframework.data.domain.Page;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public interface StudentRegistrationService {
 
-     void addStudentDetails(StudentRegistration studentRegistration);
+    void addStudentDetails(StudentRegistration studentRegistration);
 
     boolean isARegisteredStudent(String eventName, String email);
 
