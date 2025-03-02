@@ -46,6 +46,13 @@ jobs:
         with:
           name: java-app
       
+      - name: Debug - List downloaded artifact files
+        run: find . -type f
+
+      # Flatten the artifact structure: copy the JAR to a known location
+      - name: Flatten artifact structure
+        run: cp $(find . -type f -name "loginportal-0.0.1-SNAPSHOT.jar") ${{ github.workspace }}/artifact.jar
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -59,4 +66,4 @@ jobs:
         with:
           app-name: 'snrcollege'
           slot-name: 'Production'
-          package: '${{ github.workspace }}/java-app/loginportal/loginportal/loginportal/target/loginportal-0.0.1-SNAPSHOT.jar'
+          package: '${{ github.workspace }}/artifact.jar'
