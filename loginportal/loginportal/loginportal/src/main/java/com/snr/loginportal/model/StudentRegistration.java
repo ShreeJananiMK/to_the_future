@@ -2,6 +2,7 @@ package com.snr.loginportal.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -34,7 +35,7 @@ public class StudentRegistration {
     private String email;
 
     @Column(name = "dob")
-    private Date dob;
+    private LocalDate dob;
 
     @Column(name = "status")
     private String status;
@@ -95,7 +96,7 @@ public class StudentRegistration {
         this.email = email;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
@@ -107,7 +108,7 @@ public class StudentRegistration {
         this.eventName = eventName;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
