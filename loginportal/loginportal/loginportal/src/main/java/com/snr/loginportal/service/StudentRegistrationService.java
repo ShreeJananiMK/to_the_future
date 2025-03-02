@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface StudentRegistrationService {
 
-    void addStudentDetails(StudentRegistration studentRegistration);
+     void addStudentDetails(StudentRegistration studentRegistration);
 
     boolean isARegisteredStudent(String eventName, String email);
 
@@ -18,7 +18,9 @@ public interface StudentRegistrationService {
 
     boolean studentExists(Long id);
 
-    String updateStatus(Long id, String status);
+    String updateStatus(Long id, String status) throws Exception;
 
     StatusProjection getStatus();
+
+    void generateAndSendCertificates(CertificateDetails certificateDetails) throws Exception;
 }
