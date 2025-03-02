@@ -56,8 +56,8 @@ public class StudentRegistrationController {
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, result), HttpStatus.OK);
     }
 
-    @PatchMapping("/registrations/{id}/status")
-    public ResponseEntity<?> updateStatus(@PathVariable("id") Long id, @RequestParam String status){
+   @PatchMapping("/registrations/{id}/status")
+    public ResponseEntity<?> updateStatus(@PathVariable("id") Long id, @RequestParam String status) throws Exception{
         if(studentRegistrationService.studentExists(id)) {
             logger.info("Student Id : ---- : {}",studentRegistrationService.studentExists(id));
             String result = studentRegistrationService.updateStatus(id, status);
