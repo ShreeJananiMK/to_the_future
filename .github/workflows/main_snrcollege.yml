@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: java-app
-          path: 'loginportal/loginportal/loginportal/target/*.jar'
+          path: 'loginportal/loginportal/loginportal/target/loginportal-0.0.1-SNAPSHOT.jar'
 
   deploy:
     runs-on: ubuntu-latest
