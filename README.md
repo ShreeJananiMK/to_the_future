@@ -7,3 +7,5 @@ An user friendly application for the student community to enroll themselves to e
 Th Admin owns control over the events created.
 
 The students have the access to enroll themselves.
+
+Hope the users find this application handy
