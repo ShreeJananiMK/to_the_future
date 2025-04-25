@@ -2,8 +2,8 @@
 
 #SNR Event Management
 
-A user friendly application for the students community to enroll themselves to explore events organised by SNR college.
+An user friendly application for the student community to enroll themselves to explore events organised by SNR college.
 
-Th Admin owns the portal to have control over the events created
+Th Admin owns control over the events created.
 
 The students have the access to enroll themselves.
