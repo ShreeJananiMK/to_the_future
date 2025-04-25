@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'SNREventManagement'
           slot-name: 'Production'
-          package: '*.jar'
+          package: '${{ github.workspace }}/artifact.jar'
           
