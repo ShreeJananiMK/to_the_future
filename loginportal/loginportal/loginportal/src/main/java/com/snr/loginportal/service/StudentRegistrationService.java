@@ -1,6 +1,7 @@
 package com.snr.loginportal.service;
 
 import com.snr.loginportal.dto.CertificateDetails;
+import com.snr.loginportal.dto.RegistrationCountProjection;
 import com.snr.loginportal.dto.StatusProjection;
 import com.snr.loginportal.model.StudentRegistration;
 import org.springframework.data.domain.Page;
@@ -24,4 +25,6 @@ public interface StudentRegistrationService {
     StatusProjection getStatus();
 
     void generateAndSendCertificates(CertificateDetails certificateDetails) throws Exception;
+
+    List<RegistrationCountProjection> getRegistrationCount();
 }
