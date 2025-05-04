@@ -29,12 +29,16 @@ public class StudentRegistrationController {
     StudentRegistrationService studentRegistrationService;
 
     @Autowired
+    StudentRegistrationRepo studentRegistrationRepo;
+
+    @Autowired
     EventManagementService eventManagementService;
 
     private final Logger logger = LoggerFactory.getLogger(StudentRegistrationController.class);
     @PostMapping("/registrations")
+     @PostMapping("/registrations")
     public ResponseEntity<?> addStudentDetails(@RequestBody StudentRegistration studentRegistration){
-        if(studentRegistration != null){
+        if(studentRegistration != null && (studentRegistrationRepo.checkStudentCount(studentRegistration.getEventName())<=60)){
             logger.info("The Input data : ---- : {}",studentRegistration);
             if(eventManagementService.isEventNameExist(studentRegistration.getEventName())) {
                 if (studentRegistrationService.isARegisteredStudent(studentRegistration.getEventName(), studentRegistration.getEmail())) {
@@ -47,7 +51,7 @@ public class StudentRegistrationController {
             }
             else return new ResponseEntity<>(new ApiResponse(HttpStatus.CONFLICT,"Event does not exist"), HttpStatus.CONFLICT);
         }
-        else return new ResponseEntity<>(new ApiResponse(HttpStatus.CONFLICT,"Data insufficient"), HttpStatus.CONFLICT);
+        else return new ResponseEntity<>(new ApiResponse(HttpStatus.CONFLICT,"Registration limit exceeded"), HttpStatus.CONFLICT);
     }
 
     @GetMapping("/registrations")
@@ -70,6 +74,15 @@ public class StudentRegistrationController {
     public ResponseEntity<?> getStatus(){
         StatusProjection result = studentRegistrationService.getStatus();
         return new ResponseEntity<>(new ApiResponse(HttpStatus.OK,result), HttpStatus.OK);
+    }
+
+    @GetMapping("/registrations/count")
+    public ResponseEntity<?> getRegistrationCount (){
+        List<RegistrationCountProjection> result = studentRegistrationService.getRegistrationCount();
+        List<StudentRegistrationCount> dtoList = result.stream()
+                .map(row -> new StudentRegistrationCount(row.getEventName(), row.getCount()))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(new ApiResponse(HttpStatus.OK,dtoList), HttpStatus.OK);
     }
 
 }
