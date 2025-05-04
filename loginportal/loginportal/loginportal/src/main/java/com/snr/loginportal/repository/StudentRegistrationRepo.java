@@ -1,5 +1,6 @@
 package com.snr.loginportal.repository;
 
+import com.snr.loginportal.dto.RegistrationCountProjection;
 import com.snr.loginportal.dto.StatusProjection;
 import com.snr.loginportal.model.StudentRegistration;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-
+import java.util.List;
 
 public interface StudentRegistrationRepo extends JpaRepository<StudentRegistration, Long> {
     @Query(value = "select event_name from student_info where email =?1",nativeQuery = true)
