@@ -26,4 +26,11 @@ public interface StudentRegistrationRepo extends JpaRepository<StudentRegistrati
             nativeQuery = true)
     StatusProjection getStatus();
 
+    @Query("SELECT s.eventName AS eventName, COUNT(s) AS count FROM StudentRegistration s GROUP BY s.eventName")
+    List<RegistrationCountProjection> studentRegistrationCount();
+
+    @Query(value = "SELECT COUNT(*) FROM student_info " +
+            "WHERE event_name = ? ", nativeQuery = true)
+    int checkStudentCount(String eventName);
+
 }
