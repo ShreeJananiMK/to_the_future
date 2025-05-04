@@ -38,7 +38,7 @@ public class StudentRegistrationController {
     private final Logger logger = LoggerFactory.getLogger(StudentRegistrationController.class);
     @PostMapping("/registrations")
     public ResponseEntity<?> addStudentDetails(@RequestBody StudentRegistration studentRegistration){
-        if(studentRegistration != null && (studentRegistrationRepo.checkStudentCount(studentRegistration.getEventName())<=60)){
+        if(studentRegistration != null && (studentRegistrationRepo.checkStudentCount(studentRegistration.getEventName())<=5)){
             logger.info("The Input data : ---- : {}",studentRegistration);
             if(eventManagementService.isEventNameExist(studentRegistration.getEventName())) {
                 if (studentRegistrationService.isARegisteredStudent(studentRegistration.getEventName(), studentRegistration.getEmail())) {
