@@ -23,7 +23,8 @@ public interface StudentRegistrationRepo extends JpaRepository<StudentRegistrati
             "SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) AS approvedStatus, " +
             "SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) AS pendingStatus, " +
             "SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) AS rejectedStatus " +
-            "FROM student_info",
+            "FROM student_info " +
+            "WHERE event_name = ",
             nativeQuery = true)
     StatusProjection getStatus();
 
@@ -33,5 +34,9 @@ public interface StudentRegistrationRepo extends JpaRepository<StudentRegistrati
     @Query(value = "SELECT COUNT(*) FROM student_info " +
             "WHERE event_name = ? ", nativeQuery = true)
     int checkStudentCount(String eventName);
+
+    @Modifying
+    @Query(value = "UPDATE student_info s SET s.event_id = null WHERE s.event_id = ?", nativeQuery = true)
+    void updateEventID(Long eventId);
 
 }
