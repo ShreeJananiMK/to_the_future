@@ -2,6 +2,7 @@ package com.snr.loginportal.service.implement;
 
 import com.snr.loginportal.config.WebConfig;
 import com.snr.loginportal.dto.CertificateDetails;
+import com.snr.loginportal.dto.RegistrationCountProjection;
 import com.snr.loginportal.dto.StatusProjection;
 import com.snr.loginportal.model.EventManagement;
 import com.snr.loginportal.model.StudentRegistration;
@@ -14,10 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.awt.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +64,19 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
     @Override
     public Page<StudentRegistration> getStudentDetails(Map<String, String> requestParams, Pageable pageable) {
         Pageable resolvedPageable = webConfig.resolvePageable(requestParams, pageable);
-        return studentRegistrationRepo.findAll(resolvedPageable);
+        List<StudentRegistration> studentList = studentRegistrationRepo.findAll();
+        List<StudentRegistration> studentRegistrationList = new ArrayList<>();
+        for(StudentRegistration studentRegistration: studentList){
+            studentRegistration.setEventId(null);
+            studentRegistrationList.add(studentRegistration);
+        }
+        //return Page<studentRegistrationList>;
+        // Apply pagination manually
+        int start = (int) resolvedPageable.getOffset();
+        int end = Math.min((start + resolvedPageable.getPageSize()), studentRegistrationList.size());
+        List<StudentRegistration> pagedList = studentRegistrationList.subList(start, end);
+
+        return new PageImpl<>(pagedList, resolvedPageable, studentRegistrationList.size());
     }
 
     @Override
@@ -103,4 +115,10 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
         CertificateGeneration certificateGeneration = new CertificateGeneration();
         certificateGeneration.generateAndSendCertificates(certificateDetails);
     }
+
+    @Override
+    public List<RegistrationCountProjection> getRegistrationCount() {
+        return studentRegistrationRepo.studentRegistrationCount();
+    }
 }
+
