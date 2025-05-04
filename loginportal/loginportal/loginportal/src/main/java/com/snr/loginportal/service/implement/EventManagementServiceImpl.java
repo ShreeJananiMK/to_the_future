@@ -3,7 +3,9 @@ package com.snr.loginportal.service.implement;
 import com.snr.loginportal.config.WebConfig;
 import com.snr.loginportal.model.EventManagement;
 import com.snr.loginportal.repository.EventManagementRepo;
+import com.snr.loginportal.repository.StudentRegistrationRepo;
 import com.snr.loginportal.service.EventManagementService;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.slf4j.Logger;
@@ -20,6 +22,9 @@ public class EventManagementServiceImpl implements EventManagementService {
 
     @Autowired
     EventManagementRepo eventManagementRepo;
+
+    @Autowired
+    StudentRegistrationRepo studentRegistrationRepo;
 
     @Autowired
     WebConfig webConfig;
@@ -41,8 +46,10 @@ public class EventManagementServiceImpl implements EventManagementService {
         return eventManagementRepo.findAll(pageable);
     }*/
 
+    @Transactional
     @Override
     public boolean deleteEventsById(Long eventId) {
+        studentRegistrationRepo.updateEventID(eventId);
         eventManagementRepo.deleteById(eventId);
         return eventManagementRepo.isEventIdExist(eventId) == null;
     }
