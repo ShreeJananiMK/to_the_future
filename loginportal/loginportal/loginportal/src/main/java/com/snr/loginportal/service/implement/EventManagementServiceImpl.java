@@ -1,6 +1,6 @@
 package com.snr.loginportal.service.implement;
 
-import com.snr.loginportal.config.WebConfig;;
+import com.snr.loginportal.config.WebConfig;
 import com.snr.loginportal.model.EventManagement;
 import com.snr.loginportal.repository.EventManagementRepo;
 import com.snr.loginportal.service.EventManagementService;
